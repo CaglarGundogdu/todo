@@ -1,0 +1,68 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - ./todoserver/src/main/resources/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+    networks:
+      - all
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - all
+    restart: unless-stopped
+
+
+  todo-server:
+    container_name: todo_server
+    depends_on:
+        - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/todo_db
+    build:
+      context: ./todoserver
+      dockerfile: Dockerfile
+    image: todo_server:latest
+    ports:
+      - 8000:8000
+    networks:
+      - all
+
+  todo-app:
+    container_name: todo_app
+    image: todo_app:latest
+    build:
+      context: ./todoapp
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - todo-server
+    networks: 
+      - all  
+
+networks:
+  all:
+    driver: bridge
+volumes:
+    postgres:
+    pgadmin:
+
