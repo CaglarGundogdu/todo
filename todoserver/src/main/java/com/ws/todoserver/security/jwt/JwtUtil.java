@@ -87,18 +87,15 @@ public class JwtUtil {
 
 	public boolean isJWT(String jwt) {
 		String[] jwtSplitted = jwt.split("\\.");
-		if (jwtSplitted.length != 3) // The JWT is composed of three parts
+		if (jwtSplitted.length != 3)
 			return false;
 		try {
 			String jsonFirstPart = new String(Base64.getDecoder().decode(jwtSplitted[0]));
-			JSONObject firstPart = new JSONObject(jsonFirstPart); // The first part of the JWT is a JSON
-			if (!firstPart.has("alg")) // The first part has the attribute "alg"
+			JSONObject firstPart = new JSONObject(jsonFirstPart); 
+			if (!firstPart.has("alg")) 
 				return false;
 			String jsonSecondPart = new String(Base64.getDecoder().decode(jwtSplitted[1]));
-			new JSONObject(jsonSecondPart); // The first part of the JWT is a JSON
-			// Put the validations you think are necessary for the data the JWT should take
-			// to validate
-
+			new JSONObject(jsonSecondPart);
 		} catch (JSONException err) {
 			return false;
 		}
