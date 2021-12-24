@@ -68,7 +68,7 @@ export default {
     },
     created() {
         if (this.loggedIn) {
-            //this.$router.push("/active");
+            this.$router.push("/active");
         }
     },
     methods: {

@@ -14,6 +14,9 @@
                 <TodoGroup :todo-group="group" :todo-group-list="groupList" @deleteTodoGroup="deleteTodoGroup" @updateTodoGroup="updateTodoGroup" :all="true" :deleteGroupEnable="true"> </TodoGroup>
             </div>
         </div>
+        <div v-if="groupList.length == 0" class="no-groups-found">
+            <label class="no-groups-found-label"> No Groups Found.</label>
+        </div>
         <Modal @close="showTodoGroupCreateUpdateModel" :modalActive="modalActive">
             <div class="create-todo-div">
                 <label class="modal-label">Description</label>
@@ -46,6 +49,16 @@ export default {
             todoGroup: { description: null },
             modalCreateOrUpdateButtonTitle: "Create",
         };
+    },
+    computed: {
+        loggedIn() {
+            return this.$store.state.auth.status.loggedIn;
+        },
+    },
+    created() {
+        if (!this.loggedIn) {
+            this.$router.push("/login");
+        }
     },
     methods: {
         showTodoGroupCreateUpdateModel() {
@@ -170,5 +183,9 @@ export default {
     border: 0px;
     height: 44px;
     font-size: 14px;
+}
+
+.create-group-button:hover{
+    background: #acc1d1;
 }
 </style>

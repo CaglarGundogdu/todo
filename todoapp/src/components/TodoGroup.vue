@@ -9,8 +9,8 @@
                 <button class="add-todo-button" @click="showTodoCreateUpdateModel()" v-if="active"> 
                                     <font-awesome-icon icon="plus" />
                             </button>
-                <button class="add-todo-button" @click="toggleEdit()"> 
-                                    <font-awesome-icon icon="edit" />
+                <button class="edit-button-w-title" @click="toggleEdit()"> 
+                                    <font-awesome-icon icon="edit" /> {{editTodosButtonTitle}} Todos
                     </button>
                 <button v-if="deleteGroupEnable" class="delete-group-button" @click="deleteGroupClicked()" :disabled="showDeleteLoading">
                         <font-awesome-icon icon="trash"/> Delete Group
@@ -71,11 +71,9 @@ import Modal from "./Modal.vue";
 import Datepicker from "vue3-date-time-picker";
 import "vue3-date-time-picker/dist/main.css";
 
-
-
 export default {
     name: "TodoGroup",
-    components: { Todo, Modal, Datepicker, },
+    components: { Todo, Modal, Datepicker,},
     props: {
         todoGroup: {
             type: Object,
@@ -96,6 +94,7 @@ export default {
             editEnable: false,
             modalCreateOrUpdateButtonTitle: "Create",
             showDeleteLoading: false,
+            editTodosButtonTitle:"Enable Editing",
         };
     },
     methods: {
@@ -120,6 +119,8 @@ export default {
         },
         toggleEdit() {
             this.editEnable = !this.editEnable;
+            
+            this.editTodosButtonTitle =this.editEnable ? "Disable Editing" : "Enable Editing"; 
         },
         initTodo() {
              this.todo = {title:null, description: null, priority: "", group: this.todoGroup, dueDate: new Date() };
@@ -362,19 +363,36 @@ export default {
     font-size:14px;
 }
 
+.edit-button-w-title {
+    background: #c3d9e9;
+    border-radius: 8px;
+    color: #466070;
+    font-size:12px;
+    font-weight: 400;
+    border: 0px;
+}
+
+.edit-button-w-title:hover{
+    background: #acc1d1;
+}
+
 .group-action-buttons-div {
     display: flex;
     flex-direction: row;
     gap: 10px;
+    min-height: 40px;
 }
 
 .delete-group-button {
     background: #c3d9e9;
     border-radius: 8px;
     color: #466070;
-    font-size:14px;
-    font-weight: 500;
+    font-size:12px;
+    font-weight: 400;
     border: 0px;
+}
+.delete-group-button:hover{
+    background: #acc1d1;
 }
 
 .no-records {
@@ -387,6 +405,7 @@ export default {
 .dp__input {
     font-family: 'Prompt' !important;
     color: #3f5a6b !important;
+    font-size: 14px;
 }
 
 .dp__calendar {

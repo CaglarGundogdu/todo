@@ -2,7 +2,7 @@
     <div class="filter-container">
             <div class="filter-field-group">
                 <label class="modal-label">Group</label>
-                <select v-model="selectedFilterGroupId" style="width:100%">
+                <select v-model="selectedFilterGroupId" style="width: 100%;font-size: 14px;">
                     <option :value="null">Select Group</option>
                         <option v-for="tg in todoGroupList || []" :value="tg.id" :key="tg.id">
                         {{ tg.description }}
@@ -11,7 +11,7 @@
             </div>
             <div class="filter-field-group">
                 <label class="modal-label">Priority</label>
-            <select v-model="selectedFilterPriorityId" style="width:100%">
+            <select v-model="selectedFilterPriorityId" style="width: 100%;font-size: 14px;">
                     <option :value="null">Select Priority</option>
                     <option v-for="priority in priorities || []" :value="priority.id" :key="priority.id">
                     {{ priority.description }}

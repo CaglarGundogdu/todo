@@ -23,6 +23,9 @@
                 <Todo :todo="todo" @update-todo-completed="completed" :editEnable="false" :disableEdit="false"> </Todo>
             </div>
         </div>
+        <div v-if="!filterView && groupList.length == 0" class="no-groups-found">
+            <label class="no-groups-found-label"> No Groups Found. Go Groups page and create a group.</label>
+        </div>
     </div>
 </template>
 
@@ -49,6 +52,16 @@ export default {
             filterMessage:"Open",
             todoList: {},
         };
+    },
+    computed: {
+        loggedIn() {
+            return this.$store.state.auth.status.loggedIn;
+        },
+    },
+    created() {
+        if (!this.loggedIn) {
+            this.$router.push("/login");
+        }
     },
     methods: {
         toggleFilter() {
