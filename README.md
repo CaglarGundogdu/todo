@@ -45,9 +45,9 @@ To install **TodoApp**, follow these steps:
 
   # Windows  
   
-  ./mvnw.cmd clean package -DskipTests
+  mvnw.cmd clean package -DskipTests
   
-  copy target/todo-server-0.0.1.jar release
+  copy target\todo-server-0.0.1.jar release
 ```
 * Go back to `.` folder
 ```bash
