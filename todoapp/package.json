@@ -20,7 +20,7 @@
         "vee-validate": "^4.5.7",
         "vue": "^3.0.0",
         "vue-router": "^4.0.12",
-        "vue3-date-time-picker": "^2.4.3",
+        "@vuepic/vue-datepicker": "^3.2.2",
         "vuex": "^4.0.2",
         "yup": "^0.32.11"
     },

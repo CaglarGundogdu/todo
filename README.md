@@ -3,7 +3,12 @@
 
 ToDo application with both backend and frontend implementations.
 
+# PreRequirement
 
+* Docker
+* Pyhton
+* GitLab Runner
+* Java JDK
 
 **Backend:** Spring Boot with JWT Auth mechanism
 

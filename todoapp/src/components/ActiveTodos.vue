@@ -36,8 +36,8 @@ import Nav from "./Nav.vue";
 import TodoService from "../services/todo.service";
 import TodoGroup from "./TodoGroup.vue";
 import Todo from "./Todo.vue";
-import "vue3-date-time-picker/dist/main.css";
 import TodoFilter from "./TodoFilter.vue";
+import '@vuepic/vue-datepicker/dist/main.css';
 
 export default {
     name: 'ActiveTodos',
